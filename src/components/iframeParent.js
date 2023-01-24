@@ -21,6 +21,7 @@ const IframeParent = () => {
       if (("" + number).length !== 10) {
         errorsMsg.number = { error: "Phone number should be 10 digits, " };
       }
+      //eslint-disable-next-line
       if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(email)) {
         errorsMsg.email = { error: "Email is invalid, " };
       }
