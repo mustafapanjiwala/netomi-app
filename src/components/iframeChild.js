@@ -4,16 +4,27 @@ import "./form.css";
 
 const IframeChild = () => {
   const [name, setName] = useState("");
+  const [country, setCountry] = useState("");
   const [number, setNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [country, setCountry] = useState([]);
-  const [countryCode, setCountryCode] = useState("");
-  const [st, setSt] = useState([]);
+  const [state, setState] = useState("");
+
+  const [countryData, setCountryData] = useState([]);
+  const [countryIndex, setCountryIndex] = useState(0);
   const [startDate, setStartDate] = useState(new Date());
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Do something with inputValue here
+    const formData = {
+      name,
+      number,
+      email,
+      country: country,
+      state,
+      target: "parentComponent",
+    };
+    console.log(formData, "from child");
+    window.parent.postMessage(formData, "http://localhost:3000");
   };
 
   useEffect(() => {
@@ -22,30 +33,20 @@ const IframeChild = () => {
         "https://raw.githubusercontent.com/stefanbinder/countries-states/master/countries.json"
       );
       const data = await response.json();
-      setCountry(data);
+      console.log(data);
+      setCountryData(data);
     };
     getCountries();
   }, []);
 
-  const handleCountry = (event) => {
-    const getCountryCode = event.target.value;
-    setCountryCode(getCountryCode);
+  const handleCountryChange = (event) => {
+    const countryIndex = event.target.value;
+    setCountryIndex(countryIndex);
+    setCountry(countryData[countryIndex]);
   };
-  const handleState = (event) => {
-    //Do something
+  const handleState = (e) => {
+    setState(e.target.value);
   };
-
-  useEffect(() => {
-    const getState = async () => {
-      const resState = await fetch(
-        "https://raw.githubusercontent.com/stefanbinder/countries-states/master/countries.json"
-      );
-      const stateData = await resState.json();
-      setSt(resState);
-      console.log(stateData);
-    };
-    getState();
-  }, []);
 
   return (
     <>
@@ -81,32 +82,33 @@ const IframeChild = () => {
         <select
           name="country"
           className="input"
-          onChange={(e) => handleCountry(e)}
+          onChange={(e) => handleCountryChange(e)}
         >
           <option value="">--Select Country--</option>
-          {country.map((country, index) => {
+          {countryData.map((country, index) => {
             return (
-              <option key={index} value={country.code2}>
+              <option key={index} value={index}>
                 {country.name}
               </option>
             );
           })}
         </select>
-        {/* <select
-          name="state"
-          className="input"
-          onChange={(e) => handleState(e)}
-        >
-          <option value="">--Select State--</option>
-          {st.map((st, index) => {
-            return (
-              <option key={index} value={state}>
-                {st.name}
-              </option>
-            );
-          })}
-        </select> */}
+        <select name="state" className="input" onChange={(e) => handleState(e)}>
+          {countryData && countryData[countryIndex] ? (
+            <>
+              <option value="">--Select State--</option>
+              {countryData[countryIndex].states.map((state, index) => {
+                return (
+                  <option key={index} value={state.code}>
+                    {state.name}
+                  </option>
+                );
+              })}
+            </>
+          ) : null}
+        </select>
         <p className="label">Email: </p>
+
         <input
           type="email"
           className="input"
