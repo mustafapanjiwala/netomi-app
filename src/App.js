@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import IframeParent from "./components/iframeParent";
+// import IframeParent from "./components/iframeParent";
 import IframeChild from "./components/iframeChild";
 import "./App.css";
 
