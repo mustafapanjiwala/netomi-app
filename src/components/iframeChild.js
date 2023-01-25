@@ -71,7 +71,7 @@ const IframeChild = () => {
         />
         <p className="label">Contact Number: </p>
         <input
-          type="number"
+          type="tel"
           className="input"
           placeholder="Enter Contact Number"
           name="Contact Number"

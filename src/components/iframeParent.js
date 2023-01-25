@@ -6,7 +6,7 @@ const IframeParent = () => {
     window.addEventListener("message", (e) => {
       console.log(e.data);
       if (
-        // e.origin !== "https://netomi-app.netlify.app/" ||
+        e.origin !== "https://netomi-app.netlify.app/" ||
         e.data.target !== "parentComponent"
       )
         return;
@@ -18,7 +18,7 @@ const IframeParent = () => {
         errorsMsg.name = {
           error: "Name should be between 4 to 10 characters, ",
         };
-      if (("" + number).length !== 10) {
+      if (number.length !== 10) {
         errorsMsg.number = { error: "Phone number should be 10 digits, " };
       }
       //eslint-disable-next-line
