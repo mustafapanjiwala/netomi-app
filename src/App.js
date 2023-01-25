@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<IframeParent />} />
-        <Route path="/iframe-child/" element={<IframeChild />} />
+        <Route path="iframe-child" element={<IframeChild />} />
       </Routes>
     </Router>
   );
