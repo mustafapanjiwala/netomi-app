@@ -52,7 +52,7 @@ const IframeParent = () => {
     >
       <h1>Parent Iframe</h1>
       <iframe
-        src="iframe-child"
+        src="https://netomi-app.netlify.app/iframe-child/"
         title="iframeChild"
         style={{
           width: "30%",
