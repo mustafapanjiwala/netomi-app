@@ -9,11 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<IframeParent />} />
-        <Route
-          exact
-          path="https://netomi-app.netlify.app/iframe-child/"
-          element={<IframeChild />}
-        />
+        <Route exact path="/iframe-child/" element={<IframeChild />} />
       </Routes>
     </Router>
   );
