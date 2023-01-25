@@ -24,7 +24,7 @@ const IframeChild = () => {
       target: "parentComponent",
     };
     console.log(formData, "from child");
-    window.parent.postMessage(formData, "http://localhost:3000");
+    window.parent.postMessage(formData, "https://netomi-app.netlify.app/");
   };
 
   useEffect(() => {
