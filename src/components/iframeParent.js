@@ -6,7 +6,7 @@ const IframeParent = () => {
     window.addEventListener("message", (e) => {
       console.log(e.data);
       if (
-        e.origin !== "https://netomi-app.netlify.app/" ||
+        // e.origin !== "https://netomi-app.netlify.app/" ||
         e.data.target !== "parentComponent"
       )
         return;
