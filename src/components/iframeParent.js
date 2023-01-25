@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const IframeParent = () => {
   const [recivedMessage, setRecievedMessage] = useState("");
+  const [er, setEr] = useState(null);
   useEffect(() => {
     window.addEventListener("message", (e) => {
       console.log(e.data);
@@ -12,12 +13,14 @@ const IframeParent = () => {
         return;
       const { name, number, email, country, state } = e.data;
       const errorsMsg = {};
+
       const successMsg = { Success: "All fields are valid" };
 
-      if (!name || name.length < 4 || name.length > 10)
+      if (!name || name.length < 4 || name.length > 10) {
         errorsMsg.name = {
           error: "Name should be between 4 to 10 characters, ",
         };
+      }
       if (number.length !== 10) {
         errorsMsg.number = { error: "Phone number should be 10 digits, " };
       }
@@ -34,8 +37,10 @@ const IframeParent = () => {
 
       if (Object.keys(errorsMsg).length !== 0) {
         setRecievedMessage(JSON.stringify({ Result: errorsMsg }));
+        setEr(true);
       } else {
         setRecievedMessage(JSON.stringify({ Result: successMsg }));
+        setEr(false);
       }
     });
   }, []);
@@ -48,6 +53,12 @@ const IframeParent = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        border:
+          er == null
+            ? " "
+            : er == false
+            ? "10px solid green"
+            : "10px solid red",
       }}
     >
       <h1>Parent Iframe</h1>
