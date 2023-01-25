@@ -54,9 +54,9 @@ const IframeParent = () => {
         alignItems: "center",
         justifyContent: "center",
         border:
-          er == null
+          er === null
             ? " "
-            : er == false
+            : er === false
             ? "10px solid green"
             : "10px solid red",
       }}
